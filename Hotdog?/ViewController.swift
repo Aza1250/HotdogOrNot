@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreML
-import Vision
+import Vision //This framework allows us to perform image analysis requests using the coreML model
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate { //Delegation - In the class, we "nominate the class to be a delegate."
     
@@ -34,15 +34,60 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             {
                 userPickedImage = img
                 imageView.image = userPickedImage
+            //Guard this line from unexpected crashing. Basically try to do this line, if it can't, do the brackets ->
+                guard let ciImage = CIImage(image: userPickedImage) else {
+                    fatalError("Couldn't convert UIImage to CIImage")
+                }
+                detect(image: ciImage)
+            //Fatal crashing the app should only be done in the production stage, for debugging reasons. Never in the deployment phase.
+
             }
             else if let img = info[UIImagePickerControllerOriginalImage] as? UIImage
             {
                 userPickedImage = img
                 imageView.image = userPickedImage
+            //If the guard statement evaluates to true (ciImage = CIImage(image: userPickedImage)) then assign it, proceed and do nothing. If it is false, do the else blocl.
+                guard let ciImage = CIImage(image: userPickedImage) else {
+                    fatalError("Couldn't convert UIImage to CIImage")
+                }
+                detect(image: ciImage)
             }
         }
         
         imagePicker.dismiss(animated: true,completion: nil)
+    }
+    
+    func detect(image: CIImage){
+        //Tries to set model as VNCoreMLModel(for: Inceptionv3().model). If it does, then it is wrapped as an optional.
+        //If it fails, then model is set to nil. But if is nil, then the guard statement protects us and throws a fatal error.
+        guard let model = try? VNCoreMLModel(for: Inceptionv3().model) else {
+            fatalError("Model is evaluated to nil") }
+            
+            let VNrequest = VNCoreMLRequest(model: model) { (request, error) in //The variables in parenthesis is what we will get back from this request.
+                //The order of operation is following: 1) We make a handler (with an image). 2) We ask it to perform the request. 3) Request returns either a result or an error.
+                //4) We use those to either assign the result to the VNresults or to trigger a fatal error and print it.
+                guard let VNresults = request.results as? [VNClassificationObservation] else {
+                    fatalError("Model failed to process image \(String(describing: error))")
+                }
+                
+                if let firstResult = VNresults.first {
+                    if firstResult.identifier.contains("hotdog") {
+                        self.navigationItem.title = "Hotdog!"
+                    }
+                    else {
+                        self.navigationItem.title = "Not Hotdog :("
+                    }
+                }
+                
+            }
+        
+        let handler = VNImageRequestHandler(ciImage: image)
+        
+        do {
+            try handler.perform([VNrequest])
+        } catch {
+            print("Error performing the request.")
+        }
     }
     
     @IBAction func cameraTapped(sender: AnyObject) {
@@ -60,10 +105,5 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-//    @IBAction func cameraTapped(_ sender: Any) {
-//        present(imagePicker, animated: true, completion: nil)
-//    }
-    
 }
 
