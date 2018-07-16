@@ -12,6 +12,7 @@
 		871391E020FC7DD20019C982 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871391DE20FC7DD20019C982 /* Main.storyboard */; };
 		871391E220FC7DD20019C982 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 871391E120FC7DD20019C982 /* Assets.xcassets */; };
 		871391E520FC7DD20019C982 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871391E320FC7DD20019C982 /* LaunchScreen.storyboard */; };
+		871391ED20FC7E4B0019C982 /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 871391EC20FC7E4B0019C982 /* Inceptionv3.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		871391E120FC7DD20019C982 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871391E420FC7DD20019C982 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871391E620FC7DD20019C982 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		871391EC20FC7E4B0019C982 /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				871391DE20FC7DD20019C982 /* Main.storyboard */,
 				871391E120FC7DD20019C982 /* Assets.xcassets */,
 				871391E320FC7DD20019C982 /* LaunchScreen.storyboard */,
+				871391EC20FC7E4B0019C982 /* Inceptionv3.mlmodel */,
 				871391E620FC7DD20019C982 /* Info.plist */,
 			);
 			path = "Hotdog?";
@@ -136,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				871391DD20FC7DD20019C982 /* ViewController.swift in Sources */,
+				871391ED20FC7E4B0019C982 /* Inceptionv3.mlmodel in Sources */,
 				871391DB20FC7DD20019C982 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +287,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MM934V475K;
 				INFOPLIST_FILE = "Hotdog?/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,6 +306,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MM934V475K;
 				INFOPLIST_FILE = "Hotdog?/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
